@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Beeuzer.Models.Carrinho>
+
+@{
+    ViewBag.Title = "Carrinho";
+}
+
+<h2>Carrinho</h2>
+
+@foreach (var item in Model)
+{
+    <table class="table">
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeProd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tamanho)
+            </td>
+            <td>
+                <p class="lead">
+                    <button type="button" onclick="Diminuir(@item.IdCar, '@User.Identity.Name')" id="min">-</button>
+                    @{
+                        int Qtd = item.Qtd;
+                    }
+
+                    @Html.EditorFor(modelItem => Qtd, new { htmlAttributes = new { @id = "valor-" + @item.IdCar, @class = "valor" } })
+                    <button type="button" onclick="Aumentar(@item.IdCar, '@User.Identity.Name')" id="max">+</button>
+                </p>
+            </td>
+            <td id="unitario-@item.IdCar">
+                @Html.DisplayFor(modelItem => item.ValorUnitario)
+            </td>
+            <td id="total-@item.IdCar">
+                @Html.DisplayFor(model => item.TotalProd@*, new { htmlAttributes = new { @id = "nomeId" } }*@)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "DeletaCarinho", new { id = item.IdCar, NomeCli = User.Identity.Name })
+            </td>
+        </tr>
+    </table>
+}
+<div id="fin">
+    @Html.ActionLink("Finalizar Carrinho", "Pedido", "Pedido", new { NomeCli = User.Identity.Name }, null)
+</div>
+
+<div id="cont">
+    @Html.ActionLink("Continuar Comprando", "Caixa", "Home")
+</div>
+
+<style>
+    body {
+        background: linear-gradient(360deg, #673088 5%, #34029d 95%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100%;
+    }
+
+    h2 {
+        color: white;
+    }
+
+    p {
+        color: aliceblue;
+    }
+
+    #fin {
+        width: 180px;
+        height: 35px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        border: 2px solid #F6BE2C;
+        background: #F6BE2C;
+        backdrop-filter: blur(2px);
+        text-align: center;
+        position: relative;
+        left: 700px;
+        margin-top: 60px;
+    }
+
+    #cont {
+        width: 180px;
+        height: 35px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        border: 2px solid #F6BE2C;
+        background: #F6BE2C;
+        backdrop-filter: blur(2px);
+        text-align: center;
+        position: relative;
+        left: 350px;
+        margin-top: -35px;
+    }
+
+    td {
+        background-color: #34029d;
+        color: white;
+    }
+
+    .table {
+        background-color: red;
+    }
+</style>
