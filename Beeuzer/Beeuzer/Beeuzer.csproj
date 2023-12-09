@@ -317,7 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Funcionario\Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
